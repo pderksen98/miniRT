@@ -6,11 +6,11 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/27 16:26:26 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/27 17:13:31 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/28 11:16:10 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../general.h"
 
 //converts rgb values in range [0,1] to int value for mlx
 // int	convert_rgb_to_int(float red, float green, float blue)

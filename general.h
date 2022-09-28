@@ -1,57 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   general.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/27 16:11:15 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/27 17:12:36 by pderksen      ########   odam.nl         */
+/*   Created: 2022/09/28 11:12:41 by pderksen      #+#    #+#                 */
+/*   Updated: 2022/09/28 14:43:29 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
-# include "mlx/mlx.h"
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <math.h>
+#ifndef GENERAL_H
+# define GENERAL_H
+# include "mlx2.h"
+# include "rays.h"
 
-# define S_WIDTH 1500
-# define S_HEIGHT 850
+void	ray_trace(t_data *img, t_camera *camera, t_sphere *sphere);
 
 //MLX
-typedef struct s_color
-{
-	float	red;
-	float	green;
-	float	blue;	
-}	t_color;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		x0;
-}	t_data;
-
-typedef struct s_screen
-{
-	void		*mlx;
-	void		*win;
-	t_data		img;
-}	t_screen;
-
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	push_pixels(t_data *img);
 
+//RAYS
+float	get_vec_length(t_vec4 vec);
+float	get_vec_length_squared(t_vec4 vec);
+float	get_vector_dot(t_vec4 u, t_vec4 v);
+t_vec4	get_vector_cross(t_vec4 u, t_vec4 v);
+t_vec4	normalize_vector(t_vec4 vec);
 
+int main(void);
 
-
-int	main(void);
 #endif

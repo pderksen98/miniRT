@@ -7,20 +7,21 @@ RED=\033[0;31m
 COLOUR_END=\033[0m
 CYAN=\033[0;36m
 
-# ifndef DEBUG
-# CFLAGS := -Wall -Wextra -Werror
-# else
-# CFLAGS := -Wall -Wextra -Werror -fsanitize=address -g
-# endif
-
+ifndef DEBUG
 CFLAGS := -Wall -Wextra -Werror
+else
+CFLAGS := -Wall -Wextra -Werror -fsanitize=address -g
+endif
 
 CC := gcc
 
 SRCS :=	src/main.c \
-		src/mlx.c
+		src/mlx.c \
+		src/camera.c \
+		src/vector_get.c \
+		src/shoot.c
 
-HEADERFILES := minirt.h
+HEADERFILES := mlx2.h rays.h general.h
 
 LIBFT := libft/libft.a
 
