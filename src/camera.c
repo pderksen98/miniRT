@@ -6,11 +6,24 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/27 17:23:08 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/28 16:33:29 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/29 17:14:22 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../general.h"
+
+//Puts pixel in input 'color' to the window on place x, y
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	if ((x >= 0 && x < S_WIDTH) && (y >= 0 && y < S_HEIGHT))
+	{
+		 dst = data->addr + (y * data->line_length + \
+		 	 x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+}
 
 void	init_camera2(t_camera2 *cam2, t_camera *camera)
 {
@@ -33,7 +46,7 @@ t_ray	get_ray_dir_and_origen(t_camera2 *cam2, int px, int py)
 	float	y;
 
 	x = ((float)(2 * px) / S_WIDTH) - 1;
-	y = ((float)(2 * py) / S_HEIGHT) - 1;
+	y = (((float)(2 * py) / S_HEIGHT) - 1); //HIER MOET WAT VERANDEWEN
 	ray.px = px;
 	ray.py = py;
 	ray.origen = cam2->cam_cord;
@@ -42,7 +55,7 @@ t_ray	get_ray_dir_and_origen(t_camera2 *cam2, int px, int py)
 	return (ray);
 }
 
-void	ray_trace(t_data *img, t_camera *camera, t_sphere *sphere)
+void	ray_trace(t_data *img, t_camera *camera, t_sphere *sphere, t_plane *plane)
 {
 	t_camera2	cam2;
 	t_ray		ray;
@@ -58,7 +71,7 @@ void	ray_trace(t_data *img, t_camera *camera, t_sphere *sphere)
 		while (px < S_WIDTH)
 		{
 			ray = get_ray_dir_and_origen(&cam2, px, py);
-			shoot_ray(&ray, img, sphere);
+			shoot_ray(&ray, img, sphere, plane);
 			px++;
 		}
 		py++;

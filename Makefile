@@ -16,10 +16,11 @@ endif
 CC := gcc
 
 SRCS :=	src/main.c \
-		src/mlx.c \
 		src/camera.c \
 		src/vector_get.c \
-		src/shoot.c
+		src/shoot.c \
+		src/sphere.c \
+		src/plane.c
 
 HEADERFILES := mlx2.h rays.h general.h
 
