@@ -6,7 +6,7 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/27 16:11:15 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/28 16:28:48 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/30 13:49:42 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 # include "rays.h"
 
-# define S_WIDTH 1920
-# define S_HEIGHT 1080
+// # define S_WIDTH 1920
+// # define S_HEIGHT 1080
 
 //MLX
 typedef struct s_color

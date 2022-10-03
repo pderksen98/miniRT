@@ -6,7 +6,7 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/27 16:04:16 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/29 17:17:58 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/30 15:36:59 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	init_input(t_camera *camera, t_sphere *sphere, t_plane *plane)
 {
 	camera->cord = (t_vec4){0,0.9,0};
-	camera->norm = (t_vec4){0,0,1};
-	camera->fov = 170;
+	camera->norm = (t_vec4){0,0,-1};
+	camera->fov = 70;
 
-	sphere->center = (t_vec4){-5, 2, 10};
+	sphere->center = (t_vec4){0, 0, -30};
 	sphere->color = (t_vec4){255, 165, 0};
-	sphere->d = 2;
+	sphere->d = 5;
 
-	plane->cord = (t_vec4){0, 1, 0};
+	plane->cord = (t_vec4){0, 2, 0};
 	plane->norm = (t_vec4){0, 1, 0};
 	plane->color = (t_vec4){0, 100, 255};
 }

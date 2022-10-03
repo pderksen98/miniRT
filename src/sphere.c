@@ -6,7 +6,7 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/29 13:02:36 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/29 16:25:50 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/30 13:55:03 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ float	get_sphere_closest_intersect(t_ray *ray, t_sphere *sphere)
 	float	t;
 
 	new_orig = ray->origen - sphere->center;
-	if (ray->px == 2 && ray->py == 2)
-		printf("new_orig y-dir = %f		new_orig x-dir = %f\n", new_orig[1], new_orig[0]);
 	b = 2 * (get_vector_dot(new_orig, ray->dir));
 	D = get_discriminant(ray, sphere, b);
 	if (D < 0)

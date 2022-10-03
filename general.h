@@ -6,7 +6,7 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 11:12:41 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/29 13:24:18 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/30 14:27:50 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define GENERAL_H
 # include "mlx2.h"
 # include "rays.h"
+
+# define S_WIDTH 1920
+# define S_HEIGHT 1080
 
 //camera.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

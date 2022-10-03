@@ -6,7 +6,7 @@
 /*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/27 17:23:08 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/29 17:14:22 by pderksen      ########   odam.nl         */
+/*   Updated: 2022/09/30 14:28:30 by pderksen      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ t_ray	get_ray_dir_and_origen(t_camera2 *cam2, int px, int py)
 	float	x;
 	float	y;
 
-	x = ((float)(2 * px) / S_WIDTH) - 1;
-	y = (((float)(2 * py) / S_HEIGHT) - 1); //HIER MOET WAT VERANDEWEN
+	x = ((float)(2 * px) / (S_WIDTH - 1)) - 1;
+	y = -1 * (((float)(2 * py) / (S_HEIGHT - 1)) - 1); //HIER MOET WAT VERANDEWEN
 	ray.px = px;
 	ray.py = py;
 	ray.origen = cam2->cam_cord;
 	dir_not_normalized = cam2->forward + (cam2->h * y * cam2->up) + (cam2->w * x * cam2->right);
 	ray.dir = normalize_vector(dir_not_normalized);
+	// printf("px,py = [%d, %d] 	x = %f	y = %f		ray.dir = {%f, %f, %f}\n", px, py, x, y, ray.dir[0], ray.dir[1], ray.dir[2]);
 	return (ray);
 }
 
