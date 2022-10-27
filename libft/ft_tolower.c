@@ -3,22 +3,18 @@
 /*                                                        ::::::::            */
 /*   ft_tolower.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 12:24:40 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/10/28 12:24:41 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:57:29 by sde-quai      #+#    #+#                 */
+/*   Updated: 2021/12/02 12:57:29 by sde-quai      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <ctype.h>
+#include "libft.h"
 
 int	ft_tolower(int c)
 {
-	if (c >= 65 && c <= 90)
-	{
-		c = c + 32;
-	}
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
 	return (c);
 }

@@ -3,33 +3,53 @@
 /*                                                        ::::::::            */
 /*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 15:16:27 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/12/07 16:00:10 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:56:46 by sde-quai      #+#    #+#                 */
+/*   Updated: 2022/05/11 11:09:04 by sde-quai      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
+#include <stdio.h>
+
+char	*ft_strdup_c(const char *s1, int c)
+{
+	char	*s2;
+	size_t	len;
+	size_t	i;
+
+	len = 0;
+	while (s1[len] && s1[len] != c)
+		len++;
+	s2 = malloc(len + 1);
+	if (!s2)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = 0;
+	return (s2);
+}
 
 char	*ft_strdup(const char *s1)
 {
+	char	*s2;
 	size_t	i;
-	size_t	length;
-	char	*ptr;
 
 	i = 0;
-	length = ft_strlen(s1) + 1;
-	ptr = (char *)malloc(length * sizeof(char));
-	if (ptr == NULL)
+	s2 = malloc(ft_strlen(s1) + 1);
+	ft_check_malloc(s2);
+	if (!s2)
 		return (0);
-	while (i < length)
+	while (s1[i] != '\0')
 	{
-		ptr[i] = s1[i];
+		s2[i] = s1[i];
 		i++;
 	}
-	return (ptr);
+	s2[i] = '\0';
+	return (s2);
 }

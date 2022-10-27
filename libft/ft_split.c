@@ -3,95 +3,107 @@
 /*                                                        ::::::::            */
 /*   ft_split.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 12:23:43 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/10/28 13:50:13 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:56:33 by sde-quai      #+#    #+#                 */
+/*   Updated: 2022/01/19 10:51:26 by sde-quai      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
-void	free_function(char **arr, int row)
+static size_t	ft_strlen_c(char *s, int c)
 {
-	while (row > 0)
-	{
-		free (arr[row]);
-		row--;
-	}
-	free (arr);
-}
+	size_t	i;
 
-int	word_length(const char *s, char c)
-{
-	int	len;
-
-	len = 0;
-	while (s[len] != c && s[len] != 0)
-		len++;
-	return (len);
-}
-
-int	word_counter(const char *s, char c)
-{
-	unsigned int	i;
-	unsigned int	count;
-
-	count = 0;
 	i = 0;
-	if (*s == 0)
-		return (0);
-	if (s[i] != c)
-		count++;
-	while (s[i] != 0)
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}
+
+static char	**ft_cleanup(char **str_2d, size_t str_num)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < str_num)
 	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-			count++;
+		free((void *)str_2d[i]);
 		i++;
 	}
-	return (count);
+	free (str_2d);
+	str_2d = NULL;
+	return (str_2d);
 }
 
-char	**ft_split2(char **arr, int words, const char *s, char c)
+static char	**ft_second_split(char **str_2d, const char *str, \
+size_t str_num, char c)
 {
-	int	i;
-	int	j;
-	int	length;
+	size_t	i;
+	size_t	j;
+	size_t	str_part;
 
 	i = 0;
-	while (i < words)
+	while (i < str_num)
 	{
-		while (*s == c)
-			s++;
-		length = word_length(s, c);
-		arr[i] = ft_substr(s, 0, length);
-		if (!arr[i])
-			free_function(arr, i);
+		str_part = ft_strlen_c((char *)str, c);
+		str_2d[i] = ft_substr(str, 0, str_part);
+		if (!str_2d[i])
+			return (ft_cleanup(str_2d, i - 1));
 		j = 0;
-		while (j < length && *s)
+		while ((j < str_part || *str == c) && *str)
 		{
-			s++;
 			j++;
+			str++;
 		}
 		i++;
 	}
-	arr[i] = NULL;
-	return (arr);
+	str_2d[i] = 0;
+	return (str_2d);
+}
+
+static size_t	ft_count_words(const char *str, char c)
+{
+	size_t	str_num;
+	size_t	i;
+
+	while (*str == c)
+		str++;
+	str_num = 0;
+	i = 0;
+	while (str[i] != 0)
+	{
+		if ((str[i] != c && str[i + 1] == c) || \
+		(str[i] != c && str[i + 1] == 0))
+			str_num++;
+		i++;
+	}
+	return (str_num);
 }
 
 char	**ft_split(const char *s, char c)
 {
-	char	**arr;
-	int		words;
+	char	**str_2d;
+	size_t	str_num;
 
 	if (!s)
 		return (NULL);
-	words = word_counter(s, c);
-	arr = (char **)ft_calloc(sizeof(char *), (words + 1));
-	if (!arr)
+	str_num = ft_count_words(s, c);
+	str_2d = ft_calloc((str_num + 1), sizeof(char *));
+	if (s[0] == 0)
+	{
+		str_2d[0] = 0;
+		return (str_2d);
+	}
+	if (!str_2d)
 		return (NULL);
-	return (ft_split2(arr, words, s, c));
+	if (!str_num)
+		return (str_2d);
+	while (*s == c)
+		s++;
+	str_2d = ft_second_split(str_2d, s, str_num, c);
+	if (!str_2d)
+		return (NULL);
+	return (str_2d);
 }

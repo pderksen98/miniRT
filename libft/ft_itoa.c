@@ -3,95 +3,72 @@
 /*                                                        ::::::::            */
 /*   ft_itoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 12:23:06 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/10/28 12:23:07 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:54:50 by sde-quai      #+#    #+#                 */
+/*   Updated: 2022/01/12 11:33:40 by stormdequay   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
-int	power_checker(int x)
+static char	*ft_itoa_fill(char	*str, int n, int pow, int i)
 {
-	int	i;
-
-	i = 10;
-	if (x == 0)
-		return (1);
-	while (x > 1)
+	while (pow)
 	{
-		i = i * 10;
-		x--;
-	}
-	return (i);
-}
-
-int	digit_counter(int n)
-{
-	int	count;
-
-	count = 0;
-	while (n > 9)
-	{
-		n = n / 10;
-		count++;
-	}
-	count++;
-	return (count);
-}
-
-char	*negative(int n, int i)
-{
-	int		count;
-	char	*str;
-
-	if (n == -2147483648)
-	{
-		return (ft_strdup("-2147483648"));
-	}
-	n = n * -1;
-	count = digit_counter(n);
-	count++;
-	str = (char *)malloc(sizeof(char) * (count + 1));
-	if (str == NULL)
-		return (NULL);
-	str[i] = '-';
-	i++;
-	count = count - 2;
-	while (count >= 0)
-	{
-		str[i] = ((n / power_checker(count)) % 10) + '0';
+		str[i] = n / (int)ft_power(10, pow - 1) + '0';
+		n %= (int)ft_power(10, pow - 1);
+		pow--;
 		i++;
-		count--;
 	}
 	str[i] = '\0';
 	return (str);
 }
 
-char	*ft_itoa(int n)
+static char	*ft_itoa_calc(int n, int pow)
 {
 	char	*str;
 	int		i;
-	int		count;
 
 	i = 0;
 	if (n < 0)
-		return (negative(n, i));
-	count = digit_counter(n);
-	str = (char *)malloc(sizeof(char) * (count + 1));
-	if (str == NULL)
-		return (NULL);
-	count--;
-	while (count >= 0)
 	{
-		str[i] = ((n / power_checker(count)) % 10) + '0';
+		str = malloc((pow + 2) * sizeof(char));
+		if (!str)
+			return (NULL);
+		str[i] = '-';
 		i++;
-		count--;
+		n = -n;
 	}
-	str[i] = '\0';
+	else
+	{
+		str = malloc((pow + 1) * sizeof(char));
+		if (!str)
+			return (NULL);
+	}
+	str = ft_itoa_fill(str, n, pow, i);
+	return (str);
+}
+
+char	*ft_itoa(int n)
+{
+	int		pow;
+	int		n_1;
+	char	*str;
+
+	if (!n)
+		return (ft_strdup("0"));
+	else if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	pow = 0;
+	n_1 = n;
+	while (n_1)
+	{
+		n_1 /= 10;
+		pow++;
+	}
+	str = ft_itoa_calc(n, pow);
+	if (!str)
+		return (NULL);
 	return (str);
 }

@@ -3,46 +3,34 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/27 16:04:16 by pderksen      #+#    #+#                 */
-/*   Updated: 2022/09/30 15:36:59 by pderksen      ########   odam.nl         */
+/*   Created: 2022/09/27 10:08:56 by sde-quai      #+#    #+#                 */
+/*   Updated: 2022/10/26 13:49:52 by sde-quai      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../general.h"
+#include "mini_rt.h"
 
-void	init_input(t_camera *camera, t_sphere *sphere, t_plane *plane)
+/**
+ * @brief Entry point of the program. test_input_file (in utils/verify_input.c)
+ * parse_input_file (in parser/parser.c). The program can only run verified 
+ * .rt files. For init_screen (init_screen.c) the .rt file is computed and put
+ * to a window in the screen. free_input_data (parser/free_input.c) frees 
+ * allocated memory.
+ * 
+ * @param argc
+ * @param argv Valid .rt file 
+ * @return int 
+ */
+int	main(int argc, char **argv)
 {
-	camera->cord = (t_vec4){0,0.9,0};
-	camera->norm = (t_vec4){0,0,-1};
-	camera->fov = 70;
+	t_parser		*input_data;
 
-	sphere->center = (t_vec4){0, 0, -30};
-	sphere->color = (t_vec4){255, 165, 0};
-	sphere->d = 5;
-
-	plane->cord = (t_vec4){0, 2, 0};
-	plane->norm = (t_vec4){0, 1, 0};
-	plane->color = (t_vec4){0, 100, 255};
-}
-
-
-int	main(void)
-{
-	t_screen	screen;
-	t_camera	camera;
-	t_sphere	sphere;
-	t_plane		plane;
-
-	screen.mlx = mlx_init();
-	screen.win = mlx_new_window(screen.mlx, S_WIDTH, S_HEIGHT, "test");
-	screen.img.img = mlx_new_image(screen.mlx, S_WIDTH, S_HEIGHT);
-	screen.img.addr = mlx_get_data_addr(screen.img.img, &screen.img.bits_per_pixel, \
-										&screen.img.line_length, &screen.img.endian);
-	init_input(&camera, &sphere, &plane);
-	ray_trace(&screen.img, &camera, &sphere, &plane);
-	mlx_put_image_to_window(screen.mlx, screen.win, screen.img.img, 0, 0);
-	mlx_loop(screen.mlx);
-	return (0);
+	if (!test_input_file(argc, argv))
+		return (EXIT_FAILURE);
+	input_data = parse_input_file(argv[1]);
+	init_screen(input_data);
+	free_input_data(input_data);
+	return (EXIT_SUCCESS);
 }

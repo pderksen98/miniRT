@@ -3,37 +3,31 @@
 /*                                                        ::::::::            */
 /*   ft_strtrim.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 12:24:31 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/10/28 12:24:32 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:57:23 by sde-quai      #+#    #+#                 */
+/*   Updated: 2021/12/02 12:57:23 by sde-quai      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*ptr;
-	int		i;
-	int		count;
+	char	*str;
+	size_t	str_len;
+	size_t	i;
 
 	if (!s1)
-		return (NULL);
-	while (ft_strchr(set, *s1) != NULL && *s1)
+		return (0);
+	while (ft_strchr(set, *s1) && *s1)
 		s1++;
-	i = ft_strlen(s1);
-	count = 0;
-	while (ft_strchr(set, s1[i]) != NULL && *s1)
-	{
-		i--;
-		count++;
-	}
-	ptr = ft_substr(s1, 0, ft_strlen(s1) - count + 1);
-	if (!ptr)
-		return (NULL);
-	return (ptr);
+	str_len = ft_strlen(s1);
+	i = 0;
+	while (ft_strchr(set, s1[str_len - i - 1]) && *s1)
+		i++;
+	str = ft_substr(s1, 0, str_len - i);
+	if (!str)
+		return (ft_strdup(""));
+	return (str);
 }

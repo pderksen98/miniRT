@@ -3,30 +3,24 @@
 /*                                                        ::::::::            */
 /*   ft_calloc.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 12:22:25 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/10/28 12:22:27 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:54:19 by sde-quai      #+#    #+#                 */
+/*   Updated: 2021/12/02 12:54:20 by sde-quai      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
-	size_t	total;
 
-	total = count * size;
 	ptr = malloc(count * size);
-	if (ptr == NULL)
+	if (!ptr)
+		return (NULL);
+	if (ptr == 0)
 		return (0);
-	else
-	{
-		ft_bzero(ptr, total);
-	}
+	ft_bzero(ptr, count * size);
 	return (ptr);
 }

@@ -3,19 +3,16 @@
 /*                                                        ::::::::            */
 /*   ft_substr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pderksen <pderksen@student.codam.nl>         +#+                     */
+/*   By: sde-quai <sde-quai@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/28 12:24:36 by pderksen      #+#    #+#                 */
-/*   Updated: 2021/10/28 12:24:37 by pderksen      ########   odam.nl         */
+/*   Created: 2021/12/02 12:57:26 by sde-quai      #+#    #+#                 */
+/*   Updated: 2022/01/12 11:35:53 by stormdequay   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_second_substr(const char *s, char *sub_s, size_t len)
+static char	*ft_second_substr(const char *s, char *sub_s, size_t len)
 {
 	size_t	i;
 
@@ -40,11 +37,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size = ft_strlen(s);
 	if (size < start)
 		return (ft_strdup(""));
-	if (len > size - start)
+	i = 0;
+	if (len > ft_strlen(s) - start)
 		return (ft_strdup(s + start));
 	sub_s = ft_calloc((len + 1), sizeof(char));
 	if (!sub_s)
-		return (NULL);
+		return (sub_s);
 	i = 0;
 	while (s[i] && start > i)
 		i++;
